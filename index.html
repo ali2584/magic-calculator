@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ماشین‌حساب جادویی</title>
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(120deg, #f7f7f7, #e0e0e0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    input, button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>سلام! من پروفسور پیکسل هستم</h2>
+  <p>دو عدد وارد کن تا جادوی ریاضی رو نشونت بدم:</p>
+  <input id="num1" type="number" placeholder="عدد اول">
+  <input id="num2" type="number" placeholder="عدد دوم">
+  <div>
+    <button onclick="calculate('+')">جمع</button>
+    <button onclick="calculate('-')">تفریق</button>
+    <button onclick="calculate('*')">ضرب</button>
+    <button onclick="calculate('/')">تقسیم</button>
+  </div>
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculate(op) {
+      const n1 = parseFloat(document.getElementById('num1').value);
+      const n2 = parseFloat(document.getElementById('num2').value);
+      if (isNaN(n1) || isNaN(n2)) {
+        document.getElementById('result').textContent = 'لطفاً دو عدد معتبر وارد کن.';
+        return;
+      }
+      let result = 0;
+      switch (op) {
+        case '+': result = n1 + n2; break;
+        case '-': result = n1 - n2; break;
+        case '*': result = n1 * n2; break;
+        case '/': result = n2 !== 0 ? n1 / n2 : 'تقسیم بر صفر مجاز نیست'; break;
+      }
+      document.getElementById('result').textContent = `نتیجه: ${result}`;
+    }
+  </script>
+</body>
+</html>
